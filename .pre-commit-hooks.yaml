@@ -1,0 +1,7 @@
+- id: pipelineguard
+  name: PipelineGuard CI/CD security scan
+  entry: pipelineguard scan . --fail-on high
+  language: python
+  pass_filenames: false
+  # no `files:` filter on purpose: committed secrets can be in any file type
+  always_run: true

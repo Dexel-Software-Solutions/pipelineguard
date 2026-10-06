@@ -1,0 +1,5 @@
+# Copy to .pipelineguard.toml in the root of the repository you scan.
+ignore_rules = ["PG009"]          # rule ids to skip
+exclude = ["tests/*", "docs/*"]   # glob patterns of paths to skip
+fail_on = "high"                  # exit code 1 at/above this severity
+min_severity = "low"              # hide anything below this

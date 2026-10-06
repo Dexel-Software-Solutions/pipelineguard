@@ -1,0 +1,34 @@
+name: PipelineGuard
+description: Scan CI/CD pipelines, Dockerfiles and secrets. Writes a SARIF report and gates on severity.
+author: Dexel Software Solutions
+branding:
+  icon: shield
+  color: blue
+inputs:
+  path:
+    description: Directory to scan
+    default: "."
+  fail-on:
+    description: Fail the step at/above this severity (info, low, medium, high, critical)
+    default: high
+  sarif-file:
+    description: Where to write the SARIF report
+    default: pipelineguard.sarif
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065  # v5
+      with:
+        python-version: "3.12"
+    - name: Install PipelineGuard
+      shell: bash
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+      run: pip install "$ACTION_PATH"
+    - name: Scan
+      shell: bash
+      env:
+        PG_PATH: ${{ inputs.path }}
+        PG_FAIL: ${{ inputs.fail-on }}
+        PG_SARIF: ${{ inputs.sarif-file }}
+      run: pipelineguard scan "$PG_PATH" --format sarif --output "$PG_SARIF" --fail-on "$PG_FAIL"

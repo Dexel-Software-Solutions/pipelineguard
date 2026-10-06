@@ -1,0 +1,13 @@
+__pycache__/
+*.egg-info/
+dist/
+build/
+.venv/
+*.spec
+.pytest_cache/
+.ruff_cache/
+*.sarif
+pg.sarif
+pipelineguard-report.*
+.mypy_cache/
+.coverage

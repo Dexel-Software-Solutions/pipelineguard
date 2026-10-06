@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pipelineguard"
+dynamic = ["version"]
+description = "Security auditor for CI/CD pipelines (GitHub Actions, Docker, GitLab) with CLI, auto-fix and Tkinter GUI"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Dexel Software Solutions", email = "dexelsoftwaresolutions@gmail.com" }]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Operating System :: OS Independent",
+]
+keywords = ["security", "ci-cd", "github-actions", "supply-chain", "devsecops", "sarif"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/dexel-software-solutions/pipelineguard"
+Issues = "https://github.com/dexel-software-solutions/pipelineguard/issues"
+Support = "https://github.com/dexel-software-solutions/pipelineguard/issues"
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "bandit", "pip-audit", "pyinstaller"]
+
+[project.scripts]
+pipelineguard = "pipelineguard.cli:main"
+pipelineguard-gui = "pipelineguard.gui:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "pipelineguard.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["pipelineguard*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"pipelineguard/report.py" = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

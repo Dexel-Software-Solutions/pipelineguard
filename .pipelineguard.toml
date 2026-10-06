@@ -1,0 +1,2 @@
+# Test fixtures contain deliberately fake secrets and vulnerable workflows.
+exclude = ["tests/*"]
